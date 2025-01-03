@@ -2,7 +2,7 @@ import { ResultCode } from "common/enums"
 import { handleServerAppError } from "common/utils/handleServerAppError"
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError"
 import { Dispatch } from "redux"
-import { setAppStatusAC } from "../../../app/app-reducer"
+import { setAppStatus } from "../../../app/app-slice"
 import { clearTasksAC } from "../../todolists/model/tasks-reducer"
 import { clearTodolistsAC, setTodolistsAC } from "../../todolists/model/todolists-reducer"
 import { authApi } from "../api/authAPI"
@@ -17,12 +17,14 @@ export const authSlice = createSlice({
     isLoggedIn: false,
     isInitialized: false,
   },
-  reducers: {
-    setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean}>) => {
-      state.isLoggedIn = action.payload.isLoggedIn;
-    },
-    setIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
-      state.isInitialized = action.payload.isInitialized;
+  reducers: (create) => {
+    return {
+      setIsLoggedIn: create.reducer<{isLoggedIn: boolean}>((state, action)=>{
+        state.isLoggedIn = action.payload.isLoggedIn
+    }),
+      setIsInitialized: create.reducer<{isInitialized: boolean}>((state, action) =>{
+        state.isInitialized = action.payload.isInitialized;
+      })
     }
   }
 })
@@ -32,12 +34,12 @@ export const {setIsLoggedIn, setIsInitialized} = authSlice.actions
 
 // thunks
 export const loginTC = (data: LoginArgs) => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   authApi
     .login(data)
     .then((res) => {
       if (res.data.resultCode === ResultCode.Success) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(setIsLoggedIn({isLoggedIn: true}))
         localStorage.setItem("sn-token", res.data.data.token)
       } else {
@@ -50,12 +52,12 @@ export const loginTC = (data: LoginArgs) => (dispatch: Dispatch) => {
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   authApi
     .logout()
     .then((res) => {
       if (res.data.resultCode === ResultCode.Success) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(setIsLoggedIn({isLoggedIn: false}))
         dispatch(clearTasksAC())
         dispatch(clearTodolistsAC())
@@ -70,12 +72,12 @@ export const logoutTC = () => (dispatch: Dispatch) => {
 }
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   authApi
     .me()
     .then((res) => {
       if (res.data.resultCode === ResultCode.Success) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(setIsLoggedIn({isLoggedIn: true}))
       } else {
         handleServerAppError(res.data, dispatch)
