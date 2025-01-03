@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, legacy_createStore, UnknownAction } f
 import { thunk, ThunkDispatch } from "redux-thunk"
 import { authReducer } from "../features/auth/model/auth-slice"
 import { tasksReducer } from "../features/todolists/model/tasks-reducer"
-import { todolistsReducer } from "../features/todolists/model/todolists-reducer"
+import { todolistsReducer } from "../features/todolists/model/todolists-slice"
 import { appReducer, appSlice } from "./app-slice"
 import { configureStore } from "@reduxjs/toolkit"
 

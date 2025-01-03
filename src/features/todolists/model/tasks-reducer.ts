@@ -6,7 +6,7 @@ import { setAppStatus } from "../../../app/app-slice"
 import { RootState } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
 import { DomainTask, UpdateTaskDomainModel, UpdateTaskModel } from "../api/tasksApi.types"
-import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-reducer"
+import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-slice"
 
 export type TasksStateType = {
   [key: string]: DomainTask[]

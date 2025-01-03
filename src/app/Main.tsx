@@ -5,7 +5,7 @@ import { AddItemForm } from "common/components"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
 import { selectIsLoggedIn } from "../features/auth/model/authSelectors"
-import { addTodolistTC } from "../features/todolists/model/todolists-reducer"
+import { addTodolistTC } from "../features/todolists/model/todolists-slice"
 import { Todolists } from "../features/todolists/ui/Todolists/Todolists"
 
 export const Main = () => {

@@ -2,7 +2,7 @@ import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { fetchTodolistsTC } from "../../model/todolists-reducer"
+import { fetchTodolistsTC } from "../../model/todolists-slice"
 import { selectTodolists } from "../../model/todolistsSelectors"
 import { Todolist } from "./Todolist/Todolist"
 
