@@ -5,7 +5,7 @@ import { Dispatch } from "redux"
 import { RequestStatus, setAppStatus } from "../../../app/app-slice"
 import { todolistsApi } from "../api/todolistsApi"
 import { Todolist } from "../api/todolistsApi.types"
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -19,7 +19,7 @@ export const todolistsSlice = createSlice({
   initialState: [] as DomainTodolist[],
   reducers: (create) => ({
     removeTodolist: create.reducer<{ id: string }>((state, action) => {
-      const index = state.findIndex((todo) => todo.id == action.payload.id)
+      const index = state.findIndex((todo) => todo.id === action.payload.id)
       if (index !== -1) state.splice(index, 1)
     }),
     addTodolist: create.reducer<{ todolist: Todolist }>((state, action) => {
@@ -31,9 +31,11 @@ export const todolistsSlice = createSlice({
       state.unshift(newTodolist)
     }),
     changeTodolistTitle: create.reducer<{ id: string; title: string }>((state, action) => {
+      console.log(current(state))
       const index = state.findIndex((todo) => todo.id === action.payload.id)
-      if (index !== 1) {
+      if (index !== -1) {
         state[index].title = action.payload.title
+        console.log(current(state))
       }
     }),
     changeTodolistFilter: create.reducer<{ id: string; filter: FilterValuesType }>((state, action) => {
@@ -53,7 +55,7 @@ export const todolistsSlice = createSlice({
         state.push({ ...tl, filter: "all", entityStatus: "idle" })
       })
     }),
-    clearTodolists: create.reducer((state, action) => {
+    clearTodolists: create.reducer(() => {
       return []
     }),
   }),

@@ -1,4 +1,3 @@
-import { Header } from "common/components"
 import s from "./Page404.module.css"
 
 export const Page404 = () => {

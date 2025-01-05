@@ -3,30 +3,28 @@ import { handleServerAppError } from "common/utils/handleServerAppError"
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError"
 import { Dispatch } from "redux"
 import { setAppStatus } from "../../../app/app-slice"
-import { clearTasksAC } from "../../todolists/model/tasks-reducer"
-import { clearTodolists, setTodolists } from "../../todolists/model/todolists-slice"
+import { clearTasks } from "../../todolists/model/tasks-slice"
+import { clearTodolists } from "../../todolists/model/todolists-slice"
 import { authApi } from "../api/authAPI"
 import { LoginArgs } from "../api/authAPI.types"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-
+import { createSlice } from "@reduxjs/toolkit"
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     isLoggedIn: false,
     isInitialized: false,
   },
   reducers: (create) => {
     return {
-      setIsLoggedIn: create.reducer<{isLoggedIn: boolean}>((state, action)=>{
+      setIsLoggedIn: create.reducer<{ isLoggedIn: boolean }>((state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
-    }),
-      setIsInitialized: create.reducer<{isInitialized: boolean}>((state, action) =>{
-        state.isInitialized = action.payload.isInitialized;
-      })
+      }),
+      setIsInitialized: create.reducer<{ isInitialized: boolean }>((state, action) => {
+        state.isInitialized = action.payload.isInitialized
+      }),
     }
-  }
+  },
 })
 
 export const authReducer = authSlice.reducer
@@ -59,7 +57,7 @@ export const logoutTC = () => (dispatch: Dispatch) => {
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(setIsLoggedIn({isLoggedIn: false}))
-        dispatch(clearTasksAC())
+        dispatch(clearTasks())
         dispatch(clearTodolists())
         localStorage.removeItem("sn-token")
       } else {
