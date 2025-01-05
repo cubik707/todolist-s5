@@ -5,6 +5,7 @@ import { tasksReducer } from "../features/todolists/model/tasks-slice"
 import { todolistsReducer } from "../features/todolists/model/todolists-slice"
 import { appReducer } from "./app-slice"
 import { configureStore } from "@reduxjs/toolkit"
+import { useDispatch } from "react-redux"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
@@ -19,6 +20,5 @@ export type RootState = ReturnType<typeof store.getState>
 
 // export type AppDispatch = typeof store.dispatch
 
-// Создаем тип диспатча который принимает как AC так и TC
-export type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>
+export type AppDispatch = typeof store.dispatch
 
