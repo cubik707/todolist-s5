@@ -9,8 +9,7 @@ import { selectAppStatus, selectThemeMode } from "../../../app/appSelectors"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { getTheme } from "common/theme"
 import { MenuButton } from "common/components"
-import { logoutTC } from "../../../features/auth/model/auth-slice"
-import { selectIsLoggedIn } from "../../../features/auth/model/authSelectors"
+import { logoutTC, selectIsLoggedIn } from "../../../features/auth/model/auth-slice"
 
 export const Header = () => {
   const dispatch = useAppDispatch()
