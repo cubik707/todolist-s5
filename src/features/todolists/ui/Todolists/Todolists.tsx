@@ -4,14 +4,6 @@ import { Todolist } from "./Todolist/Todolist"
 import { useGetTodolistsQuery } from "../../api/todolistsApi"
 
 export const Todolists = () => {
-  // const todolists = useAppSelector(selectTodolists)
-  //
-  // const dispatch = useAppDispatch()
-  //
-  // useEffect(() => {
-  //   dispatch(fetchTodolistsTC())
-  // }, [])
-
   const { data: todolists } = useGetTodolistsQuery()
 
   return (

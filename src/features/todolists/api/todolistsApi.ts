@@ -21,11 +21,33 @@ export const todolistApi = createApi({
           return todolists.map((tl) => ({ ...tl, filter: "all", entityStatus: "idle" }))
         },
       }),
+      createTodolist: builder.mutation<BaseResponse<{ item: Todolist }>, string>({
+        query: (title) => ({
+          url: "todo-lists",
+          method: "POST",
+          body: { title },
+        }),
+      }),
+      removeTodolist: builder.mutation<BaseResponse, string>({
+        query: (id) => ({
+          method: "DELETE",
+          url: `todo-lists/${id}`,
+        }),
+      }),
+      updateTodolistTitle: builder.mutation<BaseResponse, { id: string; title: string }>({
+        query: ({ id, title }) => ({
+          method: "PUT",
+          url: `todo-lists/${id}`,
+          body: {
+            title,
+          },
+        }),
+      }),
     }
   },
 })
 
-export const { useGetTodolistsQuery } = todolistApi
+export const { useGetTodolistsQuery, useCreateTodolistMutation, useRemoveTodolistMutation, useUpdateTodolistTitleMutation } = todolistApi
 
 export const _todolistsApi = {
   getTodolists() {
