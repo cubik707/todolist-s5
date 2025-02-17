@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from "common/hooks"
 import { getTheme } from "common/theme"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import { setIsLoggedIn } from "../features/auth/model/auth-slice"
+
 import CircularProgress from "@mui/material/CircularProgress"
 import s from "./App.module.css"
-import { selectThemeMode } from "./app-slice"
+import { selectThemeMode, setIsLoggedIn } from "./app-slice"
 import { useMeQuery } from "../features/auth/api/authAPI"
 import { ResultCode } from "common/enums"
 

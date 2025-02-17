@@ -12,23 +12,19 @@ import { createSlice } from "@reduxjs/toolkit"
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    isLoggedIn: false,
+
   },
   reducers: (create) => {
     return {
-      setIsLoggedIn: create.reducer<{ isLoggedIn: boolean }>((state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      }),
+
     }
   },
   selectors: {
-    selectIsLoggedIn: (state) => state.isLoggedIn,
+
   },
 })
 
 export const authReducer = authSlice.reducer
-export const { setIsLoggedIn } = authSlice.actions
-export const { selectIsLoggedIn } = authSlice.selectors
 
 // thunks
 export const loginTC = (data: LoginArgs) => (dispatch: Dispatch) => {
@@ -38,7 +34,6 @@ export const loginTC = (data: LoginArgs) => (dispatch: Dispatch) => {
     .then((res) => {
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }))
-        dispatch(setIsLoggedIn({ isLoggedIn: true }))
         localStorage.setItem("sn-token", res.data.data.token)
       } else {
         handleServerAppError(res.data, dispatch)
@@ -56,7 +51,6 @@ export const logoutTC = () => (dispatch: Dispatch) => {
     .then((res) => {
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }))
-        dispatch(setIsLoggedIn({ isLoggedIn: false }))
         dispatch(clearTasks())
         dispatch(clearTodolists())
         localStorage.removeItem("sn-token")

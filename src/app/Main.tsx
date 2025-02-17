@@ -5,8 +5,8 @@ import { AddItemForm } from "common/components"
 import { useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
 import { Todolists } from "../features/todolists/ui/Todolists/Todolists"
-import { selectIsLoggedIn } from "../features/auth/model/auth-slice"
 import { useCreateTodolistMutation } from "../features/todolists/api/todolistsApi"
+import { selectIsLoggedIn } from "./app-slice"
 
 export const Main = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
