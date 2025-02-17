@@ -1,4 +1,3 @@
-import { authReducer, authSlice } from "../features/auth/model/auth-slice"
 import { tasksReducer, tasksSlice } from "../features/todolists/model/tasks-slice"
 import { todolistsReducer, todolistsSlice } from "../features/todolists/model/todolists-slice"
 import { appReducer, appSlice } from "./app-slice"
@@ -10,7 +9,6 @@ import { baseApi } from "./baseApi"
 export const store = configureStore({
   reducer: {
     [appSlice.name]: appReducer,
-    [authSlice.name]: authReducer,
     [baseApi.reducerPath]: baseApi.reducer,
     [tasksSlice.name]: tasksReducer,
     [todolistsSlice.name]: todolistsReducer,
