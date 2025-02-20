@@ -1,11 +1,4 @@
-import { ResultCode } from "common/enums"
-import { handleServerAppError } from "common/utils/handleServerAppError"
-import { handleServerNetworkError } from "common/utils/handleServerNetworkError"
-import { Dispatch } from "redux"
-import { setAppStatus } from "../../../app/app-slice"
-import { RootState } from "../../../app/store"
-import { tasksApi } from "../api/tasksApi"
-import { DomainTask, UpdateTaskDomainModel, UpdateTaskModel } from "../api/tasksApi.types"
+import { DomainTask, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { addTodolist, removeTodolist } from "./todolists-slice"
 import { createSlice } from "@reduxjs/toolkit"
 
@@ -63,20 +56,20 @@ export const { addTask, setTasks, removeTask, updateTask, clearTasks } = tasksSl
 export const { selectTasks } = tasksSlice.selectors
 
 // Thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
-  dispatch(setAppStatus({ status: "loading" }))
-  tasksApi
-    .getTasks(todolistId)
-    .then((res) => {
-      dispatch(setAppStatus({ status: "succeeded" }))
-      dispatch(setTasks({ todolistId, tasks: res.data.items }))
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch)
-    })
-}
+// export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+//   dispatch(setAppStatus({ status: "loading" }))
+//   tasksApi
+//     .getTasks(todolistId)
+//     .then((res) => {
+//       dispatch(setAppStatus({ status: "succeeded" }))
+//       dispatch(setTasks({ todolistId, tasks: res.data.items }))
+//     })
+//     .catch((error) => {
+//       handleServerNetworkError(error, dispatch)
+//     })
+// }
 
-export const removeTaskTC = (arg: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
+/*export const removeTaskTC = (arg: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setAppStatus({ status: "loading" }))
   tasksApi
     .deleteTask(arg)
@@ -108,9 +101,9 @@ export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispat
     .catch((error) => {
       handleServerNetworkError(error, dispatch)
     })
-}
+}*/
 
-export const updateTaskTC =
+/*export const updateTaskTC =
   (arg: { taskId: string; todolistId: string; domainModel: UpdateTaskDomainModel }) =>
   (dispatch: Dispatch, getState: () => RootState) => {
     const { taskId, todolistId, domainModel } = arg
@@ -145,5 +138,5 @@ export const updateTaskTC =
           handleServerNetworkError(error, dispatch)
         })
     }
-  }
+  }*/
   
